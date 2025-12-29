@@ -9,12 +9,17 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router';
+import type { League } from '@/types/leagues';
+import { SpinnerCustom } from '@/components/ui/spinner';
 
 const LeaguesPage = () => {
     const { data: leagues, isLoading, isError, error } = useGetLeagues();
 
+    const navigate = useNavigate();
+
     if (isLoading) {
-        return <div>Načítám</div>;
+        return <SpinnerCustom />;
     }
 
     if (isError) {
@@ -23,7 +28,7 @@ const LeaguesPage = () => {
 
     return (
         <CardSpacing>
-            {leagues?.map((league) => {
+            {leagues?.map((league: League) => {
                 return (
                     <Card key={league.id}>
                         <CardHeader>
@@ -39,7 +44,15 @@ const LeaguesPage = () => {
                                 </div>
                             </CardDescription>
                             <CardAction>
-                                <Button size="icon-sm" aria-label="Submit">
+                                <Button
+                                    onClick={() =>
+                                        navigate(
+                                            `/league/${league.id}/${league.currentseason?.id}`
+                                        )
+                                    }
+                                    size="icon-sm"
+                                    aria-label="Submit"
+                                >
                                     <ArrowRight />
                                 </Button>
                             </CardAction>

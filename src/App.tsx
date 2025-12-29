@@ -18,7 +18,10 @@ function App() {
                         element={<Navigate to="leagues" replace />}
                     ></Route>
                     <Route path="/leagues" element={<LeaguesPage />} />
-                    <Route path="/league/:seasonId" element={<LeaguePage />} />
+                    <Route
+                        path="/league/:leagueId/:seasonId"
+                        element={<LeaguePage />}
+                    />
                     <Route
                         path="/team/:seasonId/:teamId"
                         element={<TeamPage />}
