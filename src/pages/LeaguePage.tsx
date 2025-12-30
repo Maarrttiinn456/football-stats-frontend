@@ -1,5 +1,4 @@
-import { useParams } from 'react-router';
-import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router';
 import useGetAllSeasonsByLeague from '@/queries/useGetAllSeasonsByLeague';
 import SeasonSelect from '@/components/SeasonSelect';
 import { SpinnerCustom } from '@/components/ui/spinner';
@@ -7,10 +6,9 @@ import LeagueTabs from '@/components/league/LeagueTabs';
 
 const LeaguePage = () => {
     const { leagueId, seasonId } = useParams();
+    const navigate = useNavigate();
     const leagueIdNumber = leagueId ? Number(leagueId) : undefined;
     const seasonIdNumber = seasonId ? Number(seasonId) : undefined;
-
-    const [currentSeasonId, setCurrentSeasonId] = useState(seasonIdNumber);
 
     const {
         data: leagueWithSeasons,
@@ -19,6 +17,7 @@ const LeaguePage = () => {
         error,
     } = useGetAllSeasonsByLeague(leagueIdNumber);
 
+    //Vezmu jen nejnovější xxx sezóny
     const topSeasonsSorted = leagueWithSeasons?.seasons
         .slice()
         .sort(
@@ -26,15 +25,22 @@ const LeaguePage = () => {
                 new Date(b.starting_at).getTime() -
                 new Date(a.starting_at).getTime()
         )
-        .slice(0, 4);
+        .slice(0, 1000);
 
     const handleChangeSeason = (value: number) => {
-        setCurrentSeasonId(value);
+        navigate(`/league/${leagueIdNumber}/${value}`);
     };
 
+    //Získání názvu aktuální sezóny a vložení do selectu
+    const currentSeasonName = leagueWithSeasons?.seasons.find(
+        (season) => season.id === seasonIdNumber
+    )?.name;
+
+    /*
     useEffect(() => {
         console.log(leagueWithSeasons);
     }, [leagueWithSeasons]);
+    */
 
     if (isLoading) {
         return (
@@ -47,13 +53,6 @@ const LeaguePage = () => {
     if (isError) {
         return <div>Error: {error.message}</div>;
     }
-
-    //const [currentSeasonId, setCurrentSeasonId] = useState(seasonId);
-
-    //prectu currentseasson id a na zaklade toho zobazim vsechna data
-    //Na zaklade league Id najdu vsechny sezony a ty dam do input selectu
-    //Na zaklade current league ID budu volat tabulku, strelce atd
-    //seasinID bude muset být uložen v useState
 
     return (
         <div>
@@ -78,10 +77,7 @@ const LeaguePage = () => {
                         <SeasonSelect
                             data={topSeasonsSorted}
                             onChange={handleChangeSeason}
-                            placeholder={
-                                leagueWithSeasons?.currentseason?.name ||
-                                'Vyber sezónu'
-                            }
+                            placeholder={currentSeasonName || 'Vyber sezónu'}
                         />
                     )}
                 </div>
