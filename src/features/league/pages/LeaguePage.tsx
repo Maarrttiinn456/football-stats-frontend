@@ -1,8 +1,8 @@
-import { useNavigate, useParams } from 'react-router';
+import { Outlet, useNavigate, useParams } from 'react-router';
 import useGetAllSeasonsByLeague from '@/features/league/queries/useGetAllSeasonsByLeague';
 import SeasonSelect from '@/shared/components/SeasonSelect';
 import { SpinnerCustom } from '@/shared/ui/spinner';
-import LeagueTabs from '../components/LeagueTabs';
+import RouteTabs from '@/shared/components/RouteTabs';
 
 const LeaguePage = () => {
     const { leagueId, seasonId } = useParams();
@@ -78,7 +78,30 @@ const LeaguePage = () => {
             </div>
 
             <div className="mt-10">
-                <LeagueTabs />
+                <RouteTabs
+                    items={[
+                        { value: 'standings', label: 'Table', to: `standings` },
+                        {
+                            value: 'fixtures',
+                            label: 'Fixtures',
+                            to: `fixtures`,
+                        },
+                        {
+                            value: 'player-stats',
+                            label: 'Player stats',
+                            to: `player-stats`,
+                        },
+                        {
+                            value: 'team-stats',
+                            label: 'Team stats',
+                            to: `team-stats`,
+                        },
+                    ]}
+                    fallbackValue="standings"
+                />
+                <div className="mt-6">
+                    <Outlet />
+                </div>
             </div>
         </>
     );
