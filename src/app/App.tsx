@@ -6,7 +6,7 @@ import { Routes, Route, Navigate } from 'react-router';
 import LeaguesPage from '@/features/leagues/pages/LeaguesPage';
 import LeaguePage from '@/features/league/pages/LeaguePage';
 import TeamPage from '@/features/team/pages/TeamPage';
-import MainAppLayout from '@/shared/layouts/MainAppLayout';
+import MainAppLayout from '@/app/layouts/MainAppLayout';
 
 function App() {
     return (

@@ -36,12 +36,6 @@ const LeaguePage = () => {
         (season) => season.id === seasonIdNumber
     )?.name;
 
-    /*
-    useEffect(() => {
-        console.log(leagueWithSeasons);
-    }, [leagueWithSeasons]);
-    */
-
     if (isLoading) {
         return (
             <div>
@@ -55,7 +49,7 @@ const LeaguePage = () => {
     }
 
     return (
-        <div>
+        <>
             <div className="flex justify-between items-end">
                 <div className="flex items-center gap-x-4">
                     <img
@@ -86,7 +80,7 @@ const LeaguePage = () => {
             <div className="mt-10">
                 <LeagueTabs />
             </div>
-        </div>
+        </>
     );
 };
 

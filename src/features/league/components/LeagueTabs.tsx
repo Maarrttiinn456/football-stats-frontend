@@ -1,3 +1,4 @@
+import PlayerStatsPage from '@/features/player-stats/pages/PlayerStatsPage';
 import LeagueStandings from '@/features/standings/components/LeagueStandings';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs';
 const LeagueTabs = () => {
@@ -13,7 +14,9 @@ const LeagueTabs = () => {
                 <LeagueStandings />
             </TabsContent>
             <TabsContent value="fixtures">Fixtures</TabsContent>
-            <TabsContent value="player_stats">Player stats</TabsContent>
+            <TabsContent value="player_stats">
+                <PlayerStatsPage />
+            </TabsContent>
             <TabsContent value="team_stats">team_stats</TabsContent>
         </Tabs>
     );

@@ -1,27 +1,17 @@
 import { useState } from 'react';
 import { useParams } from 'react-router';
 import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from '@/shared/ui/table';
-import {
     getCoreRowModel,
     useReactTable,
-    flexRender,
     getSortedRowModel,
 } from '@tanstack/react-table';
-import type { SortingState } from '@tanstack/react-table';
 import useGetStansings from '@/features/standings/queries/useGetStandings';
 import { getStandingsColumns } from './standingsColumn';
 import { SpinnerCustom } from '@/shared/ui/spinner';
 import { Card, CardContent, CardHeader } from '@/shared/ui/card';
 import { Button } from '@/shared/ui/button';
 import { TableRuleClass } from '../utils/standingsRuleStyles';
+import DataTable from '@/shared/components/DataTable';
 
 const LeagueStandings = () => {
     const { seasonId } = useParams();
@@ -37,8 +27,6 @@ const LeagueStandings = () => {
         error,
     } = useGetStansings(seasonIdNumber);
 
-    const [sorting, setSorting] = useState<SortingState>([]);
-
     const baseColumns = getStandingsColumns('base');
     const extendedColumns = getStandingsColumns('extended');
 
@@ -46,8 +34,6 @@ const LeagueStandings = () => {
     const baseTable = useReactTable({
         data: standings?.base ?? [],
         columns: baseColumns,
-        state: { sorting },
-        onSortingChange: setSorting,
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
     });
@@ -55,13 +41,18 @@ const LeagueStandings = () => {
     const extendedTable = useReactTable({
         data: standings?.extended ?? [],
         columns: extendedColumns,
-        state: { sorting },
-        onSortingChange: setSorting,
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
     });
 
-    const table = isTableExtended ? extendedTable : baseTable;
+    const tableRules = Object.entries(TableRuleClass).map(
+        ([ruleName, bgClass]) => (
+            <div key={ruleName} className="flex items-center gap-2">
+                <span className={`w-3 h-3 rounded-sm ${bgClass}`} />
+                <span className="text-sm">{ruleName}</span>
+            </div>
+        )
+    );
 
     if (isLoading) {
         return (
@@ -97,51 +88,11 @@ const LeagueStandings = () => {
             </CardHeader>
 
             <CardContent>
-                <Table>
-                    <TableCaption>
-                        {Object.entries(TableRuleClass).map(
-                            ([ruleName, bgClass]) => (
-                                <div
-                                    key={ruleName}
-                                    className="flex items-center gap-2"
-                                >
-                                    <span
-                                        className={`w-3 h-3 rounded-sm ${bgClass}`}
-                                    />
-                                    <span className="text-sm">{ruleName}</span>
-                                </div>
-                            )
-                        )}
-                    </TableCaption>
-                    <TableHeader>
-                        {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => (
-                                    <TableHead key={header.id}>
-                                        {flexRender(
-                                            header.column.columnDef.header,
-                                            header.getContext()
-                                        )}
-                                    </TableHead>
-                                ))}
-                            </TableRow>
-                        ))}
-                    </TableHeader>
-                    <TableBody>
-                        {table.getRowModel().rows.map((row) => (
-                            <TableRow key={row.id}>
-                                {row.getVisibleCells().map((cell) => (
-                                    <TableCell key={cell.id}>
-                                        {flexRender(
-                                            cell.column.columnDef.cell,
-                                            cell.getContext()
-                                        )}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                {isTableExtended ? (
+                    <DataTable table={extendedTable} caption={tableRules} />
+                ) : (
+                    <DataTable table={baseTable} caption={tableRules} />
+                )}
             </CardContent>
         </Card>
     );

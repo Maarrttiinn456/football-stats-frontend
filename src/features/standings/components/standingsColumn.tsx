@@ -1,10 +1,10 @@
 import { getRuleClass } from '@/features/standings/utils/standingsRuleStyles';
+import type { ColumnDef } from '@tanstack/react-table';
+import { Link } from 'react-router';
 import type {
     StandingsTableRowBase,
     StandingsTableRowExtended,
-} from '@/features/standings/types';
-import type { ColumnDef } from '@tanstack/react-table';
-import { Link } from 'react-router';
+} from '../types';
 
 type Variant = 'base' | 'extended';
 
