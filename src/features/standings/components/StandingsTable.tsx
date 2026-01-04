@@ -8,9 +8,9 @@ import {
 import useGetStansings from '@/features/standings/queries/useGetStandings';
 import { getStandingsColumns } from './standingsColumn';
 import { SpinnerCustom } from '@/shared/ui/spinner';
-import { Card, CardContent } from '@/shared/ui/card';
 import { TableRuleClass } from '../utils/standingsRuleStyles';
 import DataTable from '@/shared/components/DataTable';
+import { CardBase } from '@/shared/components/CardBase';
 
 import type {
     StandingsTableRowBase,
@@ -60,15 +60,15 @@ const StandingsTable = ({ variant }: Props) => {
     if (isError) return <div>Error: {error.message}</div>;
 
     return (
-        <Card>
-            <CardContent>
+        <CardBase>
+            <CardBase.Content>
                 {variant === 'base' ? (
                     <DataTable table={baseTable} caption={tableRules} />
                 ) : (
                     <DataTable table={extendedTable} caption={tableRules} />
                 )}
-            </CardContent>
-        </Card>
+            </CardBase.Content>
+        </CardBase>
     );
 };
 

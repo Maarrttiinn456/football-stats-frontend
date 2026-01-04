@@ -1,17 +1,20 @@
 import type { ApiResponse } from '@/shared/types/api';
 import type { Participant } from '@/shared/types/entities/participant';
 import type { Player } from '@/shared/types/entities/player';
-import type { StatisticType } from '@/shared/types/entities/statistics-type';
+import type { PlayerStatsDetail } from './player-stats-detail';
 
 export type PlayerStats = {
-    season_id: number;
+    id: number;
     player_id: number;
-    position: number;
-    total: number;
+    team_id: number;
+    season_id: number;
+    has_values: boolean;
+    position_id: number;
+    jersey_number: number | null;
 
     player: Player;
-    participant: Participant;
-    type: StatisticType;
+    team: Participant;
+    details: PlayerStatsDetail[];
 };
 
-export type TopScorersPlayer = ApiResponse<PlayerStats[]>;
+export type PlayerStatsLeaderBoard = ApiResponse<PlayerStats[]>;

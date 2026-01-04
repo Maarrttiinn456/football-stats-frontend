@@ -4,11 +4,10 @@ import type { PlayerStats } from '../types';
 export const playerColumns: ColumnDef<PlayerStats>[] = [
     {
         header: '#',
-        accessorKey: 'position',
+        cell: ({ row }) => row.index + 1,
     },
     {
         header: 'Name',
-        accessorKey: 'player.display_name',
         cell: ({ row }) => {
             const { image_path, display_name, position } = row.original.player;
 
@@ -29,17 +28,12 @@ export const playerColumns: ColumnDef<PlayerStats>[] = [
     },
     {
         header: 'Club',
-        accessorKey: 'participant.image_path',
         cell: ({ row }) => (
-            <img
-                className="w-6"
-                src={row.original.participant.image_path}
-                alt=""
-            />
+            <img className="w-6" src={row.original.team.image_path} alt="" />
         ),
     },
     {
         header: 'Total',
-        accessorKey: 'total',
+        accessorFn: (row) => row.details[0]?.value.total ?? 0,
     },
 ];

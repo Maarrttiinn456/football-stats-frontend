@@ -1,17 +1,11 @@
 import useGetLeagues from '@/features/leagues/queries/useGetLeagues';
 import CardSpacing from '@/shared/layouts/CardSpacing';
-import {
-    Card,
-    CardAction,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from '@/shared/ui/card';
 import { Button } from '@/shared/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import { SpinnerCustom } from '@/shared/ui/spinner';
 import type { League } from '../types';
+import { CardBase } from '@/shared/components/CardBase';
 
 const LeaguesPage = () => {
     const { data: leagues, isLoading, isError, error } = useGetLeagues();
@@ -30,10 +24,10 @@ const LeaguesPage = () => {
         <CardSpacing>
             {leagues?.map((league: League) => {
                 return (
-                    <Card key={league.id}>
-                        <CardHeader>
-                            <CardTitle>{league.name}</CardTitle>
-                            <CardDescription>
+                    <CardBase key={league.id}>
+                        <CardBase.Header
+                            title={league.name}
+                            description={
                                 <div className="flex gap-x-2 items-center">
                                     <img
                                         className="h-3"
@@ -42,8 +36,8 @@ const LeaguesPage = () => {
                                     />
                                     {league.country?.name}
                                 </div>
-                            </CardDescription>
-                            <CardAction>
+                            }
+                            action={
                                 <Button
                                     onClick={() =>
                                         navigate(
@@ -55,9 +49,9 @@ const LeaguesPage = () => {
                                 >
                                     <ArrowRight />
                                 </Button>
-                            </CardAction>
-                        </CardHeader>
-                    </Card>
+                            }
+                        />
+                    </CardBase>
                 );
             })}
         </CardSpacing>
