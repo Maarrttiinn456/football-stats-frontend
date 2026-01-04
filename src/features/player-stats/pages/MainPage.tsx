@@ -29,11 +29,11 @@ const MainPage = () => {
 
     return (
         <CardSpacing>
-            {data.goals && (
+            {data.assists && (
                 <LeaderboardsStatsCard
                     title="Goals"
                     description={`${seasonDetail?.league.name} ${seasonDetail?.name}`}
-                    tableData={data.goals}
+                    tableData={data.assists}
                 />
             )}
             {data.cleanSheets && (
