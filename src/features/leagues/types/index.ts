@@ -25,7 +25,7 @@ export type Season = {
 export type League = {
     id: number;
     name: string;
-    short_code: string | null;
+    short_code: string;
     type: string;
     active: boolean;
     country_id: number;

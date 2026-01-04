@@ -7,7 +7,6 @@ import MainAppLayout from '@/app/layouts/MainAppLayout';
 import StandingsLayout from '@/features/standings/layouts/StandingsLayout';
 import StandingsBasePage from '@/features/standings/pages/StandingsBasePage ';
 import StandingsExtendedPage from '@/features/standings/pages/StandingsExtendedPage ';
-import { PlaySquareIcon } from 'lucide-react';
 import AttackingPage from '@/features/player-stats/pages/AttackingPage';
 import PlayerStatsLayout from '@/features/player-stats/layouts/PlayersStatsLayout';
 import DefendingPage from '@/features/player-stats/pages/DefendingPage';

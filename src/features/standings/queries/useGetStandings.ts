@@ -37,7 +37,7 @@ const useGetStansings = (seasonId?: number) => {
                     rule: {
                         id: item.rule?.type?.id ?? 0,
                         name: item.rule?.type?.name ?? '',
-                        code: item.rule?.type?.code,
+                        code: item.rule?.type?.code ?? '',
                     },
                 };
             });
@@ -106,7 +106,7 @@ const useGetStansings = (seasonId?: number) => {
                         rule: {
                             id: item.rule?.type?.id ?? 0,
                             name: item.rule?.type?.name ?? '',
-                            code: item.rule?.type?.code,
+                            code: item.rule?.type?.code ?? '',
                         },
                     };
                 }

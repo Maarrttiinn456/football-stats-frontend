@@ -1,3 +1,4 @@
+import type { Season } from '@/features/leagues/types';
 import {
     Select,
     SelectContent,
@@ -5,7 +6,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/shared/ui/select';
-import type { Season } from '@/types/leagues';
 
 type SeasonSelectProps = {
     data: Season[];
