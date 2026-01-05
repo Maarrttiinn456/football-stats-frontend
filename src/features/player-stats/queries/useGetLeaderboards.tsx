@@ -7,7 +7,12 @@ const useGetLeaderboards = (
     playerPosition?: string[]
 ) => {
     return useQuery({
-        queryKey: ['leaderboards', eventsType],
+        queryKey: [
+            'leaderboards',
+            seasonId,
+            eventsType,
+            playerPosition ?? 'all',
+        ],
         queryFn: () =>
             fetchLeaderboardsBasedOnEventType(
                 seasonId!,
@@ -15,7 +20,13 @@ const useGetLeaderboards = (
                 playerPosition
             ),
         enabled: !!seasonId && !!eventsType,
-        select: (response) => response.data,
+        select: (response) => {
+            const hasvalue = response.data.filter(
+                (player) => player.details.length > 0
+            );
+
+            return hasvalue;
+        },
     });
 };
 

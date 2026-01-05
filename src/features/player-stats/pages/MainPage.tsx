@@ -1,19 +1,51 @@
 import { useParams } from 'react-router';
+import { useEffect, useMemo } from 'react';
 import { SpinnerCustom } from '@/shared/ui/spinner';
 import CardSpacing from '@/shared/layouts/CardSpacing';
-import { useMainPageLeaderboards } from '../hooks/useMainPageLeaderboards';
 import LeaderboardsStatsCard from '../components/LeaderboardsStatsCard';
-import useGetSeasonDetail from '@/shared/queries/seassons/useGetSeasonDetail';
-import { useEffect } from 'react';
+import { MAIN_PLAYERS_STATS } from '../constants/main-players-stats';
+import useGetLeaderboards from '../queries/useGetLeaderboards';
 
 const MainPage = () => {
     const { seasonId } = useParams();
     const seasonIdNumber = seasonId ? Number(seasonId) : undefined;
 
-    const { data, isError, error, isLoading } =
-        useMainPageLeaderboards(seasonIdNumber);
+    const mainPlayerStats = MAIN_PLAYERS_STATS.map((stat) => stat.eventId);
 
-    const { data: seasonDetail } = useGetSeasonDetail(seasonIdNumber);
+    const { data, isLoading } = useGetLeaderboards(
+        seasonIdNumber,
+        mainPlayerStats
+    );
+
+    const getSpecificStat = useMemo(() => {
+        return (eventType: number) => {
+            const statConfig = MAIN_PLAYERS_STATS.find(
+                (s) => s.eventId === eventType
+            );
+
+            return (
+                data
+                    ?.filter((row) => {
+                        if (statConfig?.positions?.length) {
+                            const code = row.player?.position?.code;
+                            return code && statConfig.positions.includes(code);
+                        }
+
+                        return true;
+                    })
+                    .map((row) => ({
+                        ...row,
+                        details: row.details.filter(
+                            (d) => d.type_id === eventType
+                        ),
+                    })) ?? []
+            ).sort((a, b) => {
+                const aTotal = a.details[0]?.value?.total ?? 0;
+                const bTotal = b.details[0]?.value?.total ?? 0;
+                return bTotal - aTotal;
+            });
+        };
+    }, [data]);
 
     useEffect(() => {
         console.log(data);
@@ -23,26 +55,17 @@ const MainPage = () => {
         return <SpinnerCustom />;
     }
 
-    if (isError) {
-        return <div>Error: {error?.message}</div>;
-    }
-
     return (
         <CardSpacing>
-            {data.assists && (
-                <LeaderboardsStatsCard
-                    title="Goals"
-                    description={`${seasonDetail?.league.name} ${seasonDetail?.name}`}
-                    tableData={data.assists}
-                />
-            )}
-            {data.cleanSheets && (
-                <LeaderboardsStatsCard
-                    title="Clean sheets"
-                    description={`${seasonDetail?.league.name} ${seasonDetail?.name}`}
-                    tableData={data.cleanSheets}
-                />
-            )}
+            {data &&
+                MAIN_PLAYERS_STATS.map((stat) => (
+                    <LeaderboardsStatsCard
+                        key={stat.eventId}
+                        title={stat.title}
+                        description="dsdsd"
+                        tableData={getSpecificStat(stat.eventId)}
+                    />
+                ))}
         </CardSpacing>
     );
 };

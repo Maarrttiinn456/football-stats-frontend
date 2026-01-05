@@ -1,19 +1,7 @@
 import { useQueries } from '@tanstack/react-query';
 import { fetchLeaderboardsBasedOnEventType } from '../api/leaderboards';
 import type { PlayerStats } from '../types';
-
-const STAT = {
-    GOALS: 52,
-    ASSISTS: 79,
-    BIG_CHANCES_CREATED: 580,
-    PENALTIES: 47,
-} as const;
-
-const getTotal = (p: PlayerStats, typeId: number) =>
-    p.details?.find((d) => d.type_id === typeId)?.value?.total ?? 0;
-
-const sortByStat = (players: PlayerStats[], typeId: number) =>
-    [...players].sort((a, b) => getTotal(b, typeId) - getTotal(a, typeId));
+import { MAIN_PLAYERS_STATS } from '../constants/main-players-stats';
 
 export const useMainPageLeaderboards = (seasonId?: number) => {
     const results = useQueries({
@@ -48,10 +36,10 @@ export const useMainPageLeaderboards = (seasonId?: number) => {
                     const res = await fetchLeaderboardsBasedOnEventType(
                         seasonId!,
                         [
-                            STAT.GOALS,
-                            STAT.ASSISTS,
-                            STAT.BIG_CHANCES_CREATED,
-                            STAT.PENALTIES,
+                            MAIN_PLAYERS_STATS.GOALS,
+                            MAIN_PLAYERS_STATS.ASSISTS,
+                            MAIN_PLAYERS_STATS.BIG_CHANCES_CREATED,
+                            MAIN_PLAYERS_STATS.PENALTIES,
                         ]
                     );
 
@@ -60,25 +48,15 @@ export const useMainPageLeaderboards = (seasonId?: number) => {
                 enabled: !!seasonId,
                 select: (data: PlayerStats[]) => {
                     // jen hráči co mají aspoň něco v details
-                    const players = data.filter(
-                        (p) => p.details && p.details.length > 0
+                    const withStats = data.filter(
+                        (player) => player.details && player.details.length > 0
                     );
 
-                    return {
-                        goals: sortByStat(players, STAT.GOALS),
-                        assists: sortByStat(players, STAT.ASSISTS),
-                        bigChancesCreated: sortByStat(
-                            players,
-                            STAT.BIG_CHANCES_CREATED
-                        ),
-                        penalties: sortByStat(players, STAT.PENALTIES),
-                    };
+                    return {};
                 },
             },
         ],
     });
-
-    const playersData = results[1].data;
 
     return {
         isLoading: results.some((q) => q.isLoading),
@@ -86,11 +64,6 @@ export const useMainPageLeaderboards = (seasonId?: number) => {
         error: results.find((q) => q.error)?.error,
         data: {
             cleanSheets: results[0].data,
-
-            goals: playersData?.goals,
-            assists: playersData?.assists,
-            bigChancesCreated: playersData?.bigChancesCreated,
-            penalties: playersData?.penalties,
         },
     };
 };

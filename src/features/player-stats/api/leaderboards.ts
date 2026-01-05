@@ -5,7 +5,7 @@ export const fetchLeaderboardsBasedOnEventType = (
     seasonId: number,
     eventTypes: number[],
     playerPosition?: string[] | []
-): Promise<PlayerStatsLeaderBoard> => {
+) => {
     return FootballClient<PlayerStatsLeaderBoard>({
         url: `seasons/${seasonId}/leaderboards`,
 
