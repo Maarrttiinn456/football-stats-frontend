@@ -1,7 +1,23 @@
 export const MAIN_PLAYERS_STATS = [
-    { eventId: 52, title: 'Goals' },
-    { eventId: 79, title: 'Assists' },
-    { eventId: 194, title: 'Clean Sheets', positions: ['goalkeeper'] },
-    { eventId: 580, title: 'Big Chances Created' },
-    { eventId: 47, title: 'Penalties' },
+    {
+        id: 'goals',
+        eventId: 52,
+        title: 'Goals',
+    },
+    {
+        id: 'assists',
+        eventId: 79,
+        title: 'Assists',
+    },
+    {
+        id: 'clean_sheets',
+        eventId: 194,
+        title: 'Clean Sheets',
+        positions: ['goalkeeper'],
+    },
+    {
+        id: 'penalties',
+        eventId: 47,
+        title: 'Penalties',
+    },
 ];
