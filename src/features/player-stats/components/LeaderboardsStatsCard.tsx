@@ -17,7 +17,6 @@ import {
     getSortedRowModel,
     useReactTable,
 } from '@tanstack/react-table';
-import { DialogDescription } from '@radix-ui/react-dialog';
 
 const FullLeaderboardTable = React.lazy(() => import('./FullLeaderboardTable'));
 

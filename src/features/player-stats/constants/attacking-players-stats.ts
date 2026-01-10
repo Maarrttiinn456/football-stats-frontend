@@ -5,14 +5,6 @@ export const ATTACKING_STATS: StatConfig[] = [
     // SHOOTING
     // ========================
     {
-        id: 'goals',
-        statsId: [52],
-        title: 'Goals',
-        description: 'Total goals scored.',
-        isPercentage: false,
-        compute: (goals) => goals,
-    },
-    {
         id: 'shotsTotal',
         statsId: [42],
         title: 'Shots',
@@ -34,14 +26,6 @@ export const ATTACKING_STATS: StatConfig[] = [
     // PASSING / CREATIVITY
     // ========================
 
-    {
-        id: 'assists',
-        statsId: [79],
-        title: 'Assists',
-        description: 'Total assists.',
-        isPercentage: false,
-        compute: (assists) => assists,
-    },
     {
         id: 'bigChancesCreated',
         statsId: [580],
