@@ -4,7 +4,7 @@ import type { PlayerStatsLeaderBoard } from '../types';
 export const fetchLeaderboardsBasedOnEventType = (
     seasonId: number,
     eventTypes: number[],
-    playerPosition?: string[] | []
+    playerPosition?: string[]
 ) => {
     return FootballClient<PlayerStatsLeaderBoard>({
         url: `seasons/${seasonId}/leaderboards`,

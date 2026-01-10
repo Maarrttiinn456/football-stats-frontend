@@ -1,19 +1,30 @@
+import React, { Suspense, useMemo, useState } from 'react';
+import { ZoomIn } from 'lucide-react';
 import { CardBase } from '@/shared/components/CardBase';
-import type { PlayerStats } from '../types';
+import { playerColumns } from './playerColumns';
+import DataTable from '@/shared/components/DataTable';
+import { SpinnerCustom } from '@/shared/ui/spinner';
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/shared/ui/dialog';
+import type { PlayerStatsRow } from '../types';
 import {
     getCoreRowModel,
     getSortedRowModel,
     useReactTable,
 } from '@tanstack/react-table';
-import { playerColumns } from './playerColumns';
-import { ZoomIn } from 'lucide-react';
-import DataTable from '@/shared/components/DataTable';
-import { useMemo } from 'react';
+import { DialogDescription } from '@radix-ui/react-dialog';
+
+const FullLeaderboardTable = React.lazy(() => import('./FullLeaderboardTable'));
 
 type LeaderboardsStatsCardProps = {
     title: string;
     description: string;
-    tableData: PlayerStats[];
+    tableData: PlayerStatsRow[];
 };
 
 const LeaderboardsStatsCard = ({
@@ -21,13 +32,15 @@ const LeaderboardsStatsCard = ({
     description,
     tableData,
 }: LeaderboardsStatsCardProps) => {
-    const numberOfShowPlayers = useMemo(() => {
+    const [open, setOpen] = useState(false);
+
+    const topPlayers = useMemo(() => {
         return tableData.slice(0, 5);
     }, [tableData]);
 
     // eslint-disable-next-line react-hooks/incompatible-library
-    const table = useReactTable({
-        data: numberOfShowPlayers ?? [],
+    const topTable = useReactTable({
+        data: topPlayers ?? [],
         columns: playerColumns ?? [],
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
@@ -38,10 +51,29 @@ const LeaderboardsStatsCard = ({
             <CardBase.Header
                 title={title}
                 description={description}
-                action={<ZoomIn />}
+                action={
+                    <Dialog open={open} onOpenChange={setOpen}>
+                        <DialogTrigger asChild>
+                            <ZoomIn />
+                        </DialogTrigger>
+                        {open && (
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>{title}</DialogTitle>
+                                    <div className="text-sm">{description}</div>
+                                </DialogHeader>
+                                <Suspense fallback={<SpinnerCustom />}>
+                                    <FullLeaderboardTable
+                                        tableData={tableData}
+                                    />
+                                </Suspense>
+                            </DialogContent>
+                        )}
+                    </Dialog>
+                }
             />
             <CardBase.Content>
-                <DataTable table={table} />
+                <DataTable table={topTable} />
             </CardBase.Content>
         </CardBase>
     );

@@ -1,7 +1,7 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import type { PlayerStatsRow } from '../types';
 
-export const playerColumns: ColumnDef<PlayerStatsRow>[] = [
+export const fullPlayerColumns: ColumnDef<PlayerStatsRow>[] = [
     {
         header: '#',
         cell: ({ row }) => row.index + 1,
@@ -33,7 +33,12 @@ export const playerColumns: ColumnDef<PlayerStatsRow>[] = [
         ),
     },
     {
+        header: 'Starts',
+        accessorFn: (row) => row.gamePlayed ?? 0,
+    },
+    {
         header: 'Total',
+        accessorKey: 'rawNumber',
         accessorFn: (row) => row.value ?? 0,
     },
 ];

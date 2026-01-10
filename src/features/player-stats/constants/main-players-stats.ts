@@ -1,23 +1,44 @@
-export const MAIN_PLAYERS_STATS = [
+import type { StatConfig } from '../types/player-stat-config';
+
+export const MAIN_STATS: StatConfig[] = [
+    {
+        id: 'rating',
+        statsId: [118],
+        title: 'Rating',
+        description: 'Average player rating.',
+        isPercentage: false,
+        compute: (value) => value,
+    },
     {
         id: 'goals',
-        eventId: 52,
+        statsId: [52],
         title: 'Goals',
+        description: 'Total goals scored.',
+        isPercentage: false,
+        compute: (value) => value,
     },
     {
         id: 'assists',
-        eventId: 79,
+        statsId: [79],
         title: 'Assists',
-    },
-    {
-        id: 'clean_sheets',
-        eventId: 194,
-        title: 'Clean Sheets',
-        positions: ['goalkeeper'],
+        description: 'Total assists.',
+        isPercentage: false,
+        compute: (value) => value,
     },
     {
         id: 'penalties',
-        eventId: 47,
+        statsId: [47],
         title: 'Penalties',
+        description: 'Number of penalties taken.',
+        isPercentage: false,
+        compute: (value) => value,
+    },
+    {
+        id: 'bigChancesCreated',
+        statsId: [580],
+        title: 'Big chances created',
+        description: 'Total big chances created.',
+        isPercentage: false,
+        compute: (value) => value,
     },
 ];

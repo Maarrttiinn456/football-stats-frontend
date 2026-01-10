@@ -1,24 +1,24 @@
 import { useParams } from 'react-router';
-import { SpinnerCustom } from '@/shared/ui/spinner';
-import CardSpacing from '@/shared/layouts/CardSpacing';
-import LeaderboardsStatsCard from '../components/LeaderboardsStatsCard';
-import { MAIN_PLAYERS_STATS } from '../constants/main-players-stats';
 import useGetLeaderboards from '../queries/useGetLeaderboards';
-import { getSpecificStats } from '../utils/getSpecificStats';
-import useGetSeasonDetail from '@/shared/queries/seassons/useGetSeasonDetail';
+import { SpinnerCustom } from '@/shared/ui/spinner';
+import LeaderboardsStatsCard from '../components/LeaderboardsStatsCard';
+import CardSpacing from '@/shared/layouts/CardSpacing';
+import { getSpecificStat } from '../utils/getSpecificStats';
+import { MAIN_STATS } from '../constants/main-players-stats';
 
 const MainPage = () => {
     const { seasonId } = useParams();
     const seasonIdNumber = seasonId ? Number(seasonId) : undefined;
 
-    const mainPlayerStats = MAIN_PLAYERS_STATS.map((stat) => stat.eventId);
+    const statsToFetch = [
+        321, //odehrane zapasy
+        ...new Set(MAIN_STATS.map((stat) => stat.statsId).flat()),
+    ];
 
-    const { data: playersStats, isLoading } = useGetLeaderboards(
+    const { data: main, isLoading } = useGetLeaderboards(
         seasonIdNumber,
-        mainPlayerStats
+        statsToFetch
     );
-
-    const { data: seassonDetail } = useGetSeasonDetail(seasonIdNumber);
 
     if (isLoading) {
         return <SpinnerCustom />;
@@ -26,19 +26,17 @@ const MainPage = () => {
 
     return (
         <CardSpacing>
-            {playersStats &&
-                MAIN_PLAYERS_STATS.map((stat) => (
-                    <LeaderboardsStatsCard
-                        key={stat.eventId}
-                        title={stat.title}
-                        description={`${seassonDetail?.league.name} - ${seassonDetail?.name} `}
-                        tableData={getSpecificStats(
-                            playersStats,
-                            MAIN_PLAYERS_STATS,
-                            stat.eventId
-                        )}
-                    />
-                ))}
+            {main &&
+                MAIN_STATS.map((stat) => {
+                    return (
+                        <LeaderboardsStatsCard
+                            key={stat.id}
+                            title={stat.title}
+                            description={stat.description}
+                            tableData={getSpecificStat(main, stat)}
+                        />
+                    );
+                })}
         </CardSpacing>
     );
 };
