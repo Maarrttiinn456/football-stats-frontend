@@ -12,6 +12,11 @@ import PlayerStatsLayout from '@/features/player-stats/layouts/PlayersStatsLayou
 import DefendingPage from '@/features/player-stats/pages/DefendingPage';
 import GoalkeepingPage from '@/features/player-stats/pages/GoalkeepingPage';
 import MainPage from '@/features/player-stats/pages/MainPage';
+import TeamsStatsLayout from '@/features/teams-stats/layouts/TeamsStatsLayout';
+import ShotsPage from '@/features/teams-stats/pages/ShotsPage';
+import PossessionPassingPage from '@/features/teams-stats/pages/PossessionPassingPage';
+import AttackingPageTeams from '@/features/teams-stats/pages/AttackingPage';
+import DefendingPageTeams from '@/features/teams-stats/pages/DefendingPage';
 
 function App() {
     return (
@@ -73,6 +78,26 @@ function App() {
                             <Route
                                 path="goalkeeping"
                                 element={<GoalkeepingPage />}
+                            />
+                        </Route>
+
+                        <Route path="team-stats" element={<TeamsStatsLayout />}>
+                            <Route
+                                index
+                                element={<Navigate to="shots" replace />}
+                            />
+                            <Route path="shots" element={<ShotsPage />} />
+                            <Route
+                                path="possesion-passing"
+                                element={<PossessionPassingPage />}
+                            />
+                            <Route
+                                path="attacking"
+                                element={<AttackingPageTeams />}
+                            />
+                            <Route
+                                path="defending"
+                                element={<DefendingPageTeams />}
                             />
                         </Route>
                     </Route>

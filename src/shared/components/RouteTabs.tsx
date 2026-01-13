@@ -1,6 +1,9 @@
 import { Link, useLocation } from 'react-router';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Tabs, TabsList, TabsTrigger } from '@/shared/ui/tabs';
 import { Button } from '@/shared/ui/button';
+
+import 'swiper/css';
 
 export type RouteTabItem = {
     value: string;
@@ -27,22 +30,23 @@ const RouteTabs = ({
 
     if (variant === 'button') {
         return (
-            <div className="flex gap-2">
+            <Swiper slidesPerView={'auto'} spaceBetween={8}>
                 {items.map((item) => {
                     const isActive = item.value === active;
 
                     return (
-                        <Button
-                            key={item.value}
-                            asChild
-                            size="sm"
-                            variant={isActive ? 'default' : 'outline'}
-                        >
-                            <Link to={item.to}>{item.label}</Link>
-                        </Button>
+                        <SwiperSlide key={item.value} className="!w-fit">
+                            <Button
+                                asChild
+                                size="sm"
+                                variant={isActive ? 'default' : 'outline'}
+                            >
+                                <Link to={item.to}>{item.label}</Link>
+                            </Button>
+                        </SwiperSlide>
                     );
                 })}
-            </div>
+            </Swiper>
         );
     }
 

@@ -1,4 +1,4 @@
-import { Outlet, useNavigate, useParams } from 'react-router';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router';
 import useGetAllSeasonsByLeague from '@/features/league/queries/useGetAllSeasonsByLeague';
 import SeasonSelect from '@/shared/components/SeasonSelect';
 import { SpinnerCustom } from '@/shared/ui/spinner';
@@ -7,6 +7,7 @@ import RouteTabs from '@/shared/components/RouteTabs';
 const LeaguePage = () => {
     const { leagueId, seasonId } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
     const leagueIdNumber = leagueId ? Number(leagueId) : undefined;
     const seasonIdNumber = seasonId ? Number(seasonId) : undefined;
 
@@ -25,10 +26,14 @@ const LeaguePage = () => {
                 new Date(b.starting_at).getTime() -
                 new Date(a.starting_at).getTime()
         )
-        .slice(0, 1000);
+        .slice(0, 4);
 
     const handleChangeSeason = (value: number) => {
-        navigate(`/league/${leagueIdNumber}/${value}`);
+        const parts = location.pathname.split('/');
+        const restUrl = parts.slice(4).join('/');
+        console.log(restUrl);
+
+        navigate(`/league/${leagueIdNumber}/${value}/${restUrl}`);
     };
 
     //Získání názvu aktuální sezóny a vložení do selectu

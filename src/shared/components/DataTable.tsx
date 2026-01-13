@@ -23,7 +23,7 @@ const DataTable = <TData,>({
     isSorting = false,
 }: DataTableProps<TData>) => {
     return (
-        <Table>
+        <Table className="myTable">
             {caption && <TableCaption>{caption}</TableCaption>}
 
             <TableHeader>
@@ -32,25 +32,38 @@ const DataTable = <TData,>({
                         {headerGroup.headers.map((header) => (
                             <TableHead key={header.id}>
                                 {header.isPlaceholder ? null : isSorting ? (
-                                    <button
-                                        type="button"
-                                        onClick={header.column.getToggleSortingHandler()}
-                                        className="flex items-center gap-1"
-                                    >
-                                        <span>
-                                            {flexRender(
-                                                header.column.columnDef.header,
-                                                header.getContext()
-                                            )}
-                                        </span>
+                                    <div className="header-helper-align">
+                                        <button
+                                            type="button"
+                                            onClick={header.column.getToggleSortingHandler()}
+                                            className="flex items-center gap-1"
+                                        >
+                                            <span>
+                                                {flexRender(
+                                                    header.column.columnDef
+                                                        .header,
+                                                    header.getContext()
+                                                )}
+                                            </span>
 
-                                        {{
-                                            asc: <ArrowUp size="14" />,
-                                            desc: <ArrowDown size="14" />,
-                                        }[
-                                            header.column.getIsSorted() as string
-                                        ] ?? null}
-                                    </button>
+                                            {{
+                                                asc: (
+                                                    <ArrowUp
+                                                        size="14"
+                                                        className="text-primary"
+                                                    />
+                                                ),
+                                                desc: (
+                                                    <ArrowDown
+                                                        size="14"
+                                                        className="text-primary"
+                                                    />
+                                                ),
+                                            }[
+                                                header.column.getIsSorted() as string
+                                            ] ?? null}
+                                        </button>
+                                    </div>
                                 ) : (
                                     flexRender(
                                         header.column.columnDef.header,
@@ -64,14 +77,16 @@ const DataTable = <TData,>({
             </TableHeader>
 
             <TableBody>
-                {table.getRowModel().rows.map((row) => (
+                {table.getRowModel().rows.map((row, rowIndex) => (
                     <TableRow key={row.id}>
                         {row.getVisibleCells().map((cell) => (
                             <TableCell key={cell.id}>
-                                {flexRender(
-                                    cell.column.columnDef.cell,
-                                    cell.getContext()
-                                )}
+                                {cell.column.id === 'rank'
+                                    ? rowIndex + 1
+                                    : flexRender(
+                                          cell.column.columnDef.cell,
+                                          cell.getContext()
+                                      )}
                             </TableCell>
                         ))}
                     </TableRow>

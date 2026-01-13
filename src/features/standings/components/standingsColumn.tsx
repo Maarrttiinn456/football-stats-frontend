@@ -35,12 +35,16 @@ export function getStandingsColumns(variant: Variant = 'base') {
             header: 'Team',
             id: 'teamName',
             cell: ({ row }) => {
-                const { name, image_path } = row.original.participant;
+                const { name, image_path, short_code } =
+                    row.original.participant;
+
+                //console.log(row.original.participant);
+
                 return (
                     <Link to={`/team/${row.original.id}`}>
                         <div className="flex gap-x-3 items-center">
-                            <img className="h-6" src={image_path} alt={name} />
-                            <div>{name}</div>
+                            <img className="h-5" src={image_path} alt={name} />
+                            <div>{short_code}</div>
                         </div>
                     </Link>
                 );
@@ -70,12 +74,14 @@ export function getStandingsColumns(variant: Variant = 'base') {
             header: 'Team',
             id: 'teamName',
             cell: ({ row }) => {
-                const { name, image_path } = row.original.participant;
+                const { name, image_path, short_code } =
+                    row.original.participant;
+
                 return (
                     <Link to={`/team/${row.original.id}`}>
-                        <div className="flex gap-x-3 items-center">
-                            <img className="h-6" src={image_path} alt={name} />
-                            <div>{name}</div>
+                        <div className="flex gap-x-3 items-center w-max">
+                            <img className="h-5" src={image_path} alt={name} />
+                            <div>{short_code}</div>
                         </div>
                     </Link>
                 );

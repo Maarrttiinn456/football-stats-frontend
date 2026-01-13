@@ -3,8 +3,9 @@ import type { PlayerStatsRow } from '../types';
 
 export const playerColumns: ColumnDef<PlayerStatsRow>[] = [
     {
+        id: 'rank',
         header: '#',
-        cell: ({ row }) => row.index + 1,
+        enableSorting: false,
     },
     {
         header: 'Name',
@@ -20,7 +21,9 @@ export const playerColumns: ColumnDef<PlayerStatsRow>[] = [
                     />
                     <div>
                         <div>{display_name}</div>
-                        <div>{position?.name ?? ''}</div>
+                        <div className="text-foreground/50">
+                            {position?.name ?? ''}
+                        </div>
                     </div>
                 </div>
             );
@@ -29,7 +32,13 @@ export const playerColumns: ColumnDef<PlayerStatsRow>[] = [
     {
         header: 'Club',
         cell: ({ row }) => (
-            <img className="w-6" src={row.original.team.image_path} alt="" />
+            <div className="flex justify-center items-center">
+                <img
+                    className="w-5"
+                    src={row.original.team.image_path}
+                    alt=""
+                />
+            </div>
         ),
     },
     {

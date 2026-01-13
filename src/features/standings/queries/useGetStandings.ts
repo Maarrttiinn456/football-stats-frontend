@@ -33,6 +33,7 @@ const useGetStansings = (seasonId?: number) => {
                     participant: {
                         name: item.participant?.name ?? '',
                         image_path: item.participant?.image_path ?? '',
+                        short_code: item.participant?.short_code ?? '',
                     },
                     rule: {
                         id: item.rule?.type?.id ?? 0,
@@ -102,6 +103,7 @@ const useGetStansings = (seasonId?: number) => {
                         participant: {
                             name: item.participant?.name ?? '',
                             image_path: item.participant?.image_path ?? '',
+                            short_code: item.participant?.short_code ?? '',
                         },
                         rule: {
                             id: item.rule?.type?.id ?? 0,

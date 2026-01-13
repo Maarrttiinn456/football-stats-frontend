@@ -190,3 +190,12 @@
         @apply mx-auto px-4;
     }
 }
+
+.myTable th:nth-child(n + 3),
+.myTable td:nth-child(n + 3) {
+    @apply !text-center;
+}
+
+.myTable th:nth-child(n + 3) .header-helper-align {
+    @apply flex justify-center;
+}

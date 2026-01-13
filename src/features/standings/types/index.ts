@@ -26,6 +26,7 @@ export type StandingsTableRowBase = {
     participant: {
         name: string;
         image_path: string;
+        short_code: string;
     };
 
     rule: {
