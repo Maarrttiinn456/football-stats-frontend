@@ -196,6 +196,10 @@
     @apply !text-center;
 }
 
+.myTable td:nth-child(2) {
+    @apply sticky left-0 bg-card z-5 min-w-20;
+}
+
 .myTable th:nth-child(n + 3) .header-helper-align {
     @apply flex justify-center;
 }

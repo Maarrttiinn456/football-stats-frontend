@@ -36,9 +36,7 @@ const TeamStatsDefendingCard = ({ data }: TeamStatsShotsCardProps) => {
             <CardBase.Header title="aa" />
             <CardBase.Content>
                 <div className="overflow-x-auto">
-                    <div className="min-w-max">
-                        <DataTable table={table} isSorting={true} />
-                    </div>
+                    <DataTable table={table} isSorting={true} />
                 </div>
             </CardBase.Content>
         </CardBase>
