@@ -9,7 +9,7 @@ const Navigation = () => {
     const pathName = location.pathname;
 
     return (
-        <div className="fixed bottom-0 w-full bg-card py-4">
+        <div className="fixed bottom-0 w-full bg-card py-4 z-10">
             <div className="grid grid-cols-3">
                 <Link
                     to="live-score"

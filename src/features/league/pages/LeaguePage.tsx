@@ -86,11 +86,13 @@ const LeaguePage = () => {
                 <RouteTabs
                     items={[
                         { value: 'standings', label: 'Table', to: `standings` },
+                        /*
                         {
                             value: 'fixtures',
                             label: 'Fixtures',
                             to: `fixtures`,
                         },
+                        */
                         {
                             value: 'player-stats',
                             label: 'Player stats',
