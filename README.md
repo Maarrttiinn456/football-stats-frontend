@@ -2,6 +2,10 @@
 
 Komplexní React aplikace pro zobrazování a analýzu fotbalových statistik. Aplikace poskytuje podrobné informace o ligách, týmech, hráčích a jejich výkonech.
 
+## API
+
+https://www.sportmonks.com/
+
 ## Live demo
 
 [https://footballstatsapp.netlify.app/](https://footballstatsapp.netlify.app)
