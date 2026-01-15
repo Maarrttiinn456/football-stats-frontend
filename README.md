@@ -4,7 +4,11 @@ Komplexní React aplikace pro zobrazování a analýzu fotbalových statistik. A
 
 ## Live demo
 
-[Live demo](https://footballstatsapp.netlify.app)
+[https://footballstatsapp.netlify.app/](https://footballstatsapp.netlify.app)
+
+## Backend k aplikaci
+
+(https://github.com/Maarrttiinn456/football-stats-backend)
 
 ## 🎯 Přehled
 
