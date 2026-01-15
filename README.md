@@ -1,21 +1,10 @@
-# Football Stats Frontend 🏀⚽
+# Football Stats Frontend ⚽
 
 Komplexní React aplikace pro zobrazování a analýzu fotbalových statistik. Aplikace poskytuje podrobné informace o ligách, týmech, hráčích a jejich výkonech.
 
 ## Live demo
 
 [Live demo](https://footballstatsapp.netlify.app)
-
-## 📋 Obsah
-
--   [Přehled](#přehled)
--   [Technologický stack](#technologický-stack)
--   [Instalace a spuštění](#instalace-a-spuštění)
--   [Struktura projektu](#struktura-projektu)
--   [Hlavní funkce](#hlavní-funkce)
--   [API integrace](#api-integrace)
--   [Skripty](#skripty)
--   [Konfigurace](#konfigurace)
 
 ## 🎯 Přehled
 
@@ -135,64 +124,3 @@ npm run lint
 
 -   Optimalizováno pro desktop, tablet i mobil
 -   Tailwind CSS pro efektivní styling
-
-## 🔌 API integrace
-
-Aplikace komunikuje s backendem přes Axios:
-
-```typescript
-// Příklady API volání (v features/*/api)
-- GET /leagues              → Všechny ligy
-- GET /leagues/:id/seasons  → Sezony ligy
-- GET /standings           → Tabulka pořadí
-- GET /leaderboards        → Hráčské statistiky
-- GET /team/:id           → Detail týmu
-```
-
-API volání jsou zabalena v React Query `useQuery` hooks pro automatické caching a synchronizaci.
-
-## 🚀 Skripty
-
-| Skript            | Popis                                                    |
-| ----------------- | -------------------------------------------------------- |
-| `npm run dev`     | Spustí development server s HMR na http://localhost:5173 |
-| `npm run build`   | Vytvoří produkční build (TypeScript check + Vite build)  |
-| `npm run preview` | Náhled produkčního buildu                                |
-| `npm run lint`    | Spustí ESLint na všechny soubory                         |
-
-## ⚙️ Konfigurace
-
-### Vite
-
-Soubor [vite.config.ts](vite.config.ts) obsahuje:
-
--   React plugin pro HMR
--   Tailwind CSS plugin
--   Path aliasy (`@`, `@app`, `@shared`, `@features`)
-
-### TypeScript
-
--   [tsconfig.json](tsconfig.json) - Hlavní konfigurace
--   [tsconfig.app.json](tsconfig.app.json) - App-specific konfigurace
--   [tsconfig.node.json](tsconfig.node.json) - Node/build konfigurace
-
-### ESLint
-
-Soubor [eslint.config.js](eslint.config.js) zajišťuje:
-
--   TypeScript linting
--   React best practices
--   React Hooks pravidla
--   React Refresh pravidla
-
-### Tailwind CSS
-
-Konfigurace automaticky načtena přes Vite plugin v `vite.config.ts`
-
-### Netlify
-
-Soubor [netlify.toml](netlify.toml):
-
--   Build command: `npm run build`
--   Publish directory: `dist`
--   SPA redirect na `/index.html`
