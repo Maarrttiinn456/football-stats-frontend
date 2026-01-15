@@ -1,8 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router';
 
 import LeaguesPage from '@/features/leagues/pages/LeaguesPage';
-import LeaguePage from '@/features/league/pages/LeaguePage';
-import TeamPage from '@/features/team/pages/TeamPage';
+import TeamPage from '@/features/team/pages/TeamStatsPage';
 import MainAppLayout from '@/app/layouts/MainAppLayout';
 import StandingsLayout from '@/features/standings/layouts/StandingsLayout';
 import StandingsBasePage from '@/features/standings/pages/StandingsBasePage ';
@@ -17,6 +16,12 @@ import ShotsPage from '@/features/teams-stats/pages/ShotsPage';
 import PossessionPassingPage from '@/features/teams-stats/pages/PossessionPassingPage';
 import AttackingPageTeams from '@/features/teams-stats/pages/AttackingPage';
 import DefendingPageTeams from '@/features/teams-stats/pages/DefendingPage';
+import LeagueLayout from '@/features/league/layouts/LeagueLayout';
+import TeamLayout from '@/features/team/layouts/TeamLayout';
+import TeamStatPage from '@/features/team/pages/TeamStatsPage';
+import TeamMatechesPage from '@/features/team/pages/TeamMatechesPage';
+import TeamSquadPage from '@/features/team/pages/TeamSquadPage';
+import TeamsPage from '@/features/teams/pages/TeamsPage';
 
 function App() {
     return (
@@ -30,9 +35,11 @@ function App() {
 
                     <Route path="/leagues" element={<LeaguesPage />} />
 
+                    <Route path="/teams" element={<TeamsPage />} />
+
                     <Route
                         path="/league/:leagueId/:seasonId"
-                        element={<LeaguePage />}
+                        element={<LeagueLayout />}
                     >
                         <Route
                             index
@@ -55,7 +62,7 @@ function App() {
                         </Route>
 
                         <Route
-                            path="player-stats"
+                            path="players-stats"
                             element={<PlayerStatsLayout />}
                         >
                             <Route
@@ -81,7 +88,10 @@ function App() {
                             />
                         </Route>
 
-                        <Route path="team-stats" element={<TeamsStatsLayout />}>
+                        <Route
+                            path="teams-stats"
+                            element={<TeamsStatsLayout />}
+                        >
                             <Route
                                 index
                                 element={<Navigate to="shots" replace />}
@@ -103,9 +113,19 @@ function App() {
                     </Route>
 
                     <Route
-                        path="/team/:seasonId/:teamId"
-                        element={<TeamPage />}
-                    />
+                        path="/team/:teamId/:seasonId"
+                        element={<TeamLayout />}
+                    >
+                        <Route
+                            index
+                            element={<Navigate to="statistics" replace />}
+                        />
+                        <Route path="statistics" element={<TeamStatPage />} />
+
+                        <Route path="matches" element={<TeamMatechesPage />} />
+
+                        <Route path="squad" element={<TeamSquadPage />} />
+                    </Route>
                 </Route>
             </Routes>
         </div>

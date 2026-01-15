@@ -35,21 +35,21 @@ export const columnDefDefending: ColumnDef<TeamWithStatistics>[] = [
         header: 'Total Tackles',
         accessorFn: (row) => {
             const tackles = getStatValue<TacklesValue>(row.statistics, 78);
-            return tackles?.count;
+            return tackles?.count ?? '-';
         },
     },
     {
         header: 'Tackles per Foul',
         accessorFn: (row) => {
             const tackles = getStatValue<TacklesValue>(row.statistics, 78);
-            return tackles?.tackles_per_foul;
+            return tackles?.tackles_per_foul ?? '-';
         },
     },
     {
         header: 'Tackles per Card',
         accessorFn: (row) => {
             const tackles = getStatValue<TacklesValue>(row.statistics, 78);
-            return tackles?.tackles_per_card;
+            return tackles?.tackles_per_card ?? '-';
         },
     },
     {
@@ -59,7 +59,7 @@ export const columnDefDefending: ColumnDef<TeamWithStatistics>[] = [
                 row.statistics,
                 27252
             );
-            return inter?.total_interceptions;
+            return inter?.total_interceptions ?? '-';
         },
     },
     {
@@ -69,7 +69,7 @@ export const columnDefDefending: ColumnDef<TeamWithStatistics>[] = [
                 row.statistics,
                 27252
             );
-            return inter?.interceptions_per_game;
+            return inter?.interceptions_per_game ?? '-';
         },
     },
 ];

@@ -1,6 +1,5 @@
 import { Trophy } from 'lucide-react';
 import { Shirt } from 'lucide-react';
-import { List } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
 
 const Navigation = () => {
@@ -10,7 +9,8 @@ const Navigation = () => {
 
     return (
         <div className="fixed bottom-0 w-full bg-card py-4 z-10">
-            <div className="grid grid-cols-3">
+            <div className="grid grid-cols-2">
+                {/**
                 <Link
                     to="live-score"
                     className={`flex flex-col items-center ${
@@ -22,6 +22,7 @@ const Navigation = () => {
                     <List />
                     <div className="mt-1">Live score</div>
                 </Link>
+                 */}
                 <Link
                     to="leagues"
                     className={`flex flex-col items-center ${

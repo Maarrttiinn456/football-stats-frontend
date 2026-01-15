@@ -1,11 +1,11 @@
-import Header from '@/app/layouts/Header';
+import GlobalHeader from '@/app/layouts/GlobalHeader';
 import { Outlet } from 'react-router';
 import Navigation from './Navigation';
 
 const MainAppLayout = () => {
     return (
         <>
-            <Header />
+            <GlobalHeader />
             <div className="container mb-28">
                 <Outlet />
             </div>

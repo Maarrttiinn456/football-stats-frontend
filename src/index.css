@@ -187,7 +187,7 @@
 
 @layer utilities {
     .container {
-        @apply mx-auto px-4;
+        @apply mx-auto px-4 max-w-6xl;
     }
 }
 

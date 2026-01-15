@@ -1,6 +1,6 @@
 import { ModeToggle } from '@/shared/components/ModeToggle';
 
-const Header = () => {
+const GlobalHeader = () => {
     return (
         <div className="container mb-6">
             <div className=" flex justify-between py-4 ">
@@ -18,4 +18,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default GlobalHeader;

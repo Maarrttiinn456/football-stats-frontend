@@ -32,11 +32,11 @@ const DataTable = <TData,>({
                         {headerGroup.headers.map((header) => (
                             <TableHead key={header.id}>
                                 {header.isPlaceholder ? null : isSorting ? (
-                                    <div className="header-helper-align">
+                                    <div className="header-helper-align ">
                                         <button
                                             type="button"
                                             onClick={header.column.getToggleSortingHandler()}
-                                            className="flex items-center gap-1"
+                                            className="flex items-center gap-1 relative cursor-pointer"
                                         >
                                             <span>
                                                 {flexRender(
@@ -50,13 +50,13 @@ const DataTable = <TData,>({
                                                 asc: (
                                                     <ArrowUp
                                                         size="14"
-                                                        className="text-primary"
+                                                        className="text-primary absolute -right-5 sm:-right-6"
                                                     />
                                                 ),
                                                 desc: (
                                                     <ArrowDown
                                                         size="14"
-                                                        className="text-primary"
+                                                        className="text-primary absolute -right-5 sm:-right-6"
                                                     />
                                                 ),
                                             }[

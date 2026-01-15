@@ -53,7 +53,7 @@ const LeaderboardsStatsCard = ({
                 action={
                     <Dialog open={open} onOpenChange={setOpen}>
                         <DialogTrigger asChild>
-                            <ZoomIn />
+                            <ZoomIn className="cursor-pointer" />
                         </DialogTrigger>
                         {open && (
                             <DialogContent>

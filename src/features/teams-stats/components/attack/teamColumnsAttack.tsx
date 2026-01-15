@@ -31,14 +31,14 @@ export const columnDefAttack: ColumnDef<TeamWithStatistics>[] = [
         header: 'Total Attacks',
         accessorFn: (row) => {
             const attack = getStatValue<AttackingValue>(row.statistics, 43);
-            return attack?.count;
+            return attack?.count ?? '-';
         },
     },
     {
         header: 'Dangerous Attacks',
         accessorFn: (row) => {
             const dangAttack = getStatValue<AttackingValue>(row.statistics, 44);
-            return dangAttack?.count;
+            return dangAttack?.count ?? '-';
         },
     },
     {

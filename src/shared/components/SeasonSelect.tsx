@@ -16,7 +16,7 @@ type SeasonSelectProps = {
 const SeasonSelect = ({ data, placeholder, onChange }: SeasonSelectProps) => {
     return (
         <Select onValueChange={(value) => onChange(Number(value))}>
-            <SelectTrigger className="w-32">
+            <SelectTrigger className="w-32 cursor-pointer">
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>

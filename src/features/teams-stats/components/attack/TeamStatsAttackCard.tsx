@@ -33,7 +33,10 @@ const TeamStatsAttackCard = ({ data }: TeamStatsShotsCardProps) => {
 
     return (
         <CardBase>
-            <CardBase.Header title="aa" />
+            <CardBase.Header
+                title="Attacking stats"
+                description="On mobile devices, scroll right to see all statistics."
+            />
             <CardBase.Content>
                 <div className="overflow-x-auto">
                     <DataTable table={table} isSorting={true} />

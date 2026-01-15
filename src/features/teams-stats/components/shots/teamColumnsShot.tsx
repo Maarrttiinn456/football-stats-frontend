@@ -33,7 +33,7 @@ export const columnDefShot: ColumnDef<TeamWithStatistics>[] = [
         header: 'Goals Scored',
         accessorFn: (row) => {
             const goals = getStatValue<GoalsValue>(row.statistics, 52);
-            return goals?.all.count;
+            return goals?.all.count ?? '-';
         },
     },
     {
@@ -41,14 +41,14 @@ export const columnDefShot: ColumnDef<TeamWithStatistics>[] = [
         header: 'Total Shots',
         accessorFn: (row) => {
             const shots = getStatValue<ShotsValue>(row.statistics, 1677);
-            return shots?.total;
+            return shots?.total ?? '-';
         },
     },
     {
         header: 'Shots on Target',
         accessorFn: (row) => {
             const shots = getStatValue<ShotsValue>(row.statistics, 1677);
-            return shots?.on_target;
+            return shots?.on_target ?? '-';
         },
     },
     {
@@ -56,7 +56,7 @@ export const columnDefShot: ColumnDef<TeamWithStatistics>[] = [
         header: 'Shots per Match',
         accessorFn: (row) => {
             const shots = getStatValue<ShotsValue>(row.statistics, 1677);
-            return shots?.average;
+            return shots?.average ?? '-';
         },
     },
     {

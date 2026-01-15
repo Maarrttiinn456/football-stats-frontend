@@ -4,23 +4,24 @@ import {
     getSortedRowModel,
     useReactTable,
 } from '@tanstack/react-table';
-
+//Components
 import useGetStansings from '@/features/standings/queries/useGetStandings';
-import { getStandingsColumns } from './standingsColumn';
 import { SpinnerCustom } from '@/shared/ui/spinner';
-import { TableRuleClass } from '../utils/standingsRuleStyles';
 import DataTable from '@/shared/components/DataTable';
 import { CardBase } from '@/shared/components/CardBase';
-
+//Types
 import type {
     StandingsTableRowBase,
     StandingsTableRowExtended,
 } from '../types';
+import getBaseStandingsColumns from './baseStandingColumns';
+import getExtendedStandingsColumns from './extendStandingsColumns';
 
-type StandingsVariant = 'base' | 'extended';
-type Props = { variant: StandingsVariant };
+type VariantStandingsProps = {
+    variant: 'base' | 'extend';
+};
 
-const StandingsTable = ({ variant }: Props) => {
+const StandingsTable = ({ variant }: VariantStandingsProps) => {
     const { seasonId } = useParams();
     const seasonIdNumber = seasonId ? Number(seasonId) : undefined;
 
@@ -34,7 +35,7 @@ const StandingsTable = ({ variant }: Props) => {
     // eslint-disable-next-line react-hooks/incompatible-library
     const baseTable = useReactTable<StandingsTableRowBase>({
         data: standings?.base ?? [],
-        columns: getStandingsColumns('base'),
+        columns: getBaseStandingsColumns(seasonId),
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
     });
@@ -42,19 +43,10 @@ const StandingsTable = ({ variant }: Props) => {
     // eslint-disable-next-line react-hooks/incompatible-library
     const extendedTable = useReactTable<StandingsTableRowExtended>({
         data: standings?.extended ?? [],
-        columns: getStandingsColumns('extended'),
+        columns: getExtendedStandingsColumns(seasonId),
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
     });
-
-    const tableRules = Object.entries(TableRuleClass).map(
-        ([ruleName, bgClass]) => (
-            <div key={ruleName} className="flex items-center gap-2">
-                <span className={`w-3 h-3 rounded-sm ${bgClass}`} />
-                <span className="text-sm">{ruleName}</span>
-            </div>
-        )
-    );
 
     if (isLoading) return <SpinnerCustom />;
     if (isError) return <div>Error: {error.message}</div>;
@@ -63,9 +55,9 @@ const StandingsTable = ({ variant }: Props) => {
         <CardBase>
             <CardBase.Content>
                 {variant === 'base' ? (
-                    <DataTable table={baseTable} caption={tableRules} />
+                    <DataTable table={baseTable} />
                 ) : (
-                    <DataTable table={extendedTable} caption={tableRules} />
+                    <DataTable table={extendedTable} />
                 )}
             </CardBase.Content>
         </CardBase>

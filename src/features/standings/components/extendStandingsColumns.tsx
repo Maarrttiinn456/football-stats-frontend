@@ -1,60 +1,9 @@
-import { getRuleClass } from '@/features/standings/utils/standingsRuleStyles';
 import type { ColumnDef } from '@tanstack/react-table';
+import type { StandingsTableRowExtended } from '../types';
 import { Link } from 'react-router';
-import type {
-    StandingsTableRowBase,
-    StandingsTableRowExtended,
-} from '../types';
+import { getRuleClass } from '../utils/standingsRuleStyles';
 
-type Variant = 'base' | 'extended';
-
-export function getStandingsColumns(
-    variant?: 'base'
-): ColumnDef<StandingsTableRowBase>[];
-export function getStandingsColumns(
-    variant: 'extended'
-): ColumnDef<StandingsTableRowExtended>[];
-
-export function getStandingsColumns(variant: Variant = 'base') {
-    const base: ColumnDef<StandingsTableRowBase>[] = [
-        {
-            header: '#',
-            accessorKey: 'position',
-            cell: ({ row }) => (
-                <div className="relative">
-                    {row.original.position}
-                    <div
-                        className={`absolute top-0 -left-2 h-full w-0.5 ${getRuleClass(
-                            row.original.rule?.code
-                        )}`}
-                    />
-                </div>
-            ),
-        },
-        {
-            header: 'Team',
-            id: 'teamName',
-            cell: ({ row }) => {
-                const { name, image_path, short_code } =
-                    row.original.participant;
-
-                //console.log(row.original.participant);
-
-                return (
-                    <Link to={`/team/${row.original.id}`}>
-                        <div className="flex gap-x-3 items-center">
-                            <img className="h-5" src={image_path} alt={name} />
-                            <div>{short_code}</div>
-                        </div>
-                    </Link>
-                );
-            },
-        },
-        { header: 'PL', accessorKey: 'matchesPlayed' },
-        { header: 'GD', accessorKey: 'goalDifference' },
-        { header: 'PTS', accessorKey: 'points' },
-    ];
-
+const getExtendedStandingsColumns = (seasonId?: string) => {
     const extended: ColumnDef<StandingsTableRowExtended>[] = [
         {
             header: '#',
@@ -76,9 +25,11 @@ export function getStandingsColumns(variant: Variant = 'base') {
             cell: ({ row }) => {
                 const { name, image_path, short_code } =
                     row.original.participant;
-
+                const to = seasonId
+                    ? `/team/${row.original.id}/${seasonId}`
+                    : `/team/${row.original.id}`;
                 return (
-                    <Link to={`/team/${row.original.id}`}>
+                    <Link to={`${to}`}>
                         <div className="flex gap-x-3 items-center w-max">
                             <img className="h-5" src={image_path} alt={name} />
                             <div>{short_code}</div>
@@ -116,5 +67,7 @@ export function getStandingsColumns(variant: Variant = 'base') {
         },
     ];
 
-    return variant === 'extended' ? extended : base;
-}
+    return extended;
+};
+
+export default getExtendedStandingsColumns;

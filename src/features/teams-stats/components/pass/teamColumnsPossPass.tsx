@@ -44,7 +44,7 @@ export const columnDefPossPass: ColumnDef<TeamWithStatistics>[] = [
         header: 'Total Passes',
         accessorFn: (row) => {
             const pass = getStatValue<PassingValue>(row.statistics, 27253);
-            return pass?.total_passes.toLocaleString();
+            return pass?.total_passes.toLocaleString() ?? '-';
         },
     },
     {
@@ -52,7 +52,7 @@ export const columnDefPossPass: ColumnDef<TeamWithStatistics>[] = [
         header: 'Passes per Match',
         accessorFn: (row) => {
             const pass = getStatValue<PassingValue>(row.statistics, 27253);
-            return pass?.passes_per_game;
+            return pass?.passes_per_game ?? '-';
         },
     },
     {
@@ -60,7 +60,7 @@ export const columnDefPossPass: ColumnDef<TeamWithStatistics>[] = [
         header: 'Passes per Shot',
         accessorFn: (row) => {
             const pass = getStatValue<PassingValue>(row.statistics, 27253);
-            return pass?.passes_per_shot;
+            return pass?.passes_per_shot ?? '-';
         },
     },
     {
@@ -68,7 +68,7 @@ export const columnDefPossPass: ColumnDef<TeamWithStatistics>[] = [
         header: 'Passes per Goal',
         accessorFn: (row) => {
             const pass = getStatValue<PassingValue>(row.statistics, 27253);
-            return pass?.passes_per_goal;
+            return pass?.passes_per_goal ?? '-';
         },
     },
 ];

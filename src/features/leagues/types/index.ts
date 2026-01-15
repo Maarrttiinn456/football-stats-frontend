@@ -33,8 +33,8 @@ export type League = {
     sub_type: string;
     image_path: string;
 
-    currentseason: Season | null;
-    country: Country | null;
+    currentseason?: Season;
+    country?: Country;
 };
 
 export type LeagueWithSeasons = League & {
