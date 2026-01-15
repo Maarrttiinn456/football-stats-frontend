@@ -8,7 +8,7 @@ Komplexní React aplikace pro zobrazování a analýzu fotbalových statistik. A
 
 ## Backend k aplikaci
 
-(https://github.com/Maarrttiinn456/football-stats-backend)
+https://github.com/Maarrttiinn456/football-stats-backend
 
 ## 🎯 Přehled
 
