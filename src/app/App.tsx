@@ -1,7 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router';
 
 import LeaguesPage from '@/features/leagues/pages/LeaguesPage';
-import TeamPage from '@/features/team/pages/TeamStatsPage';
 import MainAppLayout from '@/app/layouts/MainAppLayout';
 import StandingsLayout from '@/features/standings/layouts/StandingsLayout';
 import StandingsBasePage from '@/features/standings/pages/StandingsBasePage ';
