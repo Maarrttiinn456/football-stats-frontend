@@ -5,7 +5,7 @@ const GlobalHeader = () => {
         <div className="container mb-6">
             <div className=" flex justify-between py-4 ">
                 <div className="font-light">
-                    <span className="font-bold text-lime-900 dark:text-lime-200 text-3xl">
+                    <span className="font-bold text-black dark:text-primary text-3xl">
                         Football
                     </span>
                     Stats
