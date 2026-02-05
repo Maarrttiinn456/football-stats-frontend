@@ -1,5 +1,4 @@
 import { Trophy } from 'lucide-react';
-import { Shirt } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
 
 const Navigation = () => {
@@ -34,6 +33,7 @@ const Navigation = () => {
                     <Trophy />
                     <div className="mt-1">Leagues</div>
                 </Link>
+                {/**
                 <Link
                     to="teams"
                     className={`flex flex-col items-center ${
@@ -45,6 +45,7 @@ const Navigation = () => {
                     <Shirt />
                     <div className="mt-1">Teams</div>
                 </Link>
+                */}
             </div>
         </div>
     );
